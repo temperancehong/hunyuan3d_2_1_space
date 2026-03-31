@@ -5,16 +5,12 @@ colorFrom: red
 colorTo: green
 sdk: gradio
 sdk_version: 4.44.0
+python_version: "3.10"
 
 app_file: gradio_app.py
 pinned: false
 short_description: Image-to-3D Generation
 ---
-
-
-<p align="center">
-  <img src="assets/images/teaser.jpg">
-</p>
 
 
 <div align="center">
@@ -35,28 +31,18 @@ short_description: Image-to-3D Generation
 [//]: # (  <a href="#"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/v/mulankit?logo=pypi"  height=22px></a>)
 <br>
 
+Image-to-3D generation Space based on Tencent Hunyuan3D-2.1, prepared for a private Hugging Face deployment.
+
 ## 🔥 News
 
 - Jun 19, 2025: 👋 We present the [technical report](https://arxiv.org/abs/2506.15442) of Hunyuan3D-2.1, please check out the details and spark some discussion!
 - Jun 13, 2025: 🤗 We release the first production-ready 3D asset generation model, Hunyuan3D-2.1!
 
-> Join our **[Wechat](#)** and **[Discord](https://discord.gg/dNBrdrGGMa)** group to discuss and find help from us.
-
-| Wechat Group                                     | Xiaohongshu                                           | X                                           | Discord                                           |
-|--------------------------------------------------|-------------------------------------------------------|---------------------------------------------|---------------------------------------------------|
-| <img src="assets/qrcode/wechat.png"  height=140> | <img src="assets/qrcode/xiaohongshu.png"  height=140> | <img src="assets/qrcode/x.png"  height=140> | <img src="assets/qrcode/discord.png"  height=140> |        
-
-
-
 ## ☯️ **Hunyuan3D 2.1**
 
 ### Architecture
 
-Tencent Hunyuan3D-2.1 is a scalable 3D asset creation system that advances state-of-the-art 3D generation through two pivotal innovations: Fully Open-Source Framework and  Physically-Based Rendering (PBR) Texture Synthesis. For the first time, the system releases full model weights and training code, enabling community developers to directly fine-tune and extend the model for diverse downstream applications. This transparency accelerates academic research and industrial deployment. Moreover, replacing the prior RGB-based texture model, the upgraded PBR pipeline leverages  physics-grounded material simulation  to generate textures with photorealistic light interaction (e.g., metallic reflections, subsurface scattering).
-
-<p align="left">
-  <img src="assets/images/pipeline.png">
-</p>
+Tencent Hunyuan3D-2.1 is a scalable 3D asset creation system that advances state-of-the-art 3D generation through two pivotal innovations: Fully Open-Source Framework and Physically-Based Rendering (PBR) Texture Synthesis. For the first time, the system releases full model weights and training code, enabling community developers to directly fine-tune and extend the model for diverse downstream applications. This transparency accelerates academic research and industrial deployment. Moreover, replacing the prior RGB-based texture model, the upgraded PBR pipeline leverages physics-grounded material simulation to generate textures with photorealistic light interaction (e.g., metallic reflections, subsurface scattering).
 
 ### Performance
 
