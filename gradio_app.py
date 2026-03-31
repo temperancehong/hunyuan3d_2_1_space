@@ -58,6 +58,13 @@ REALESRGAN_URL = (
     "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth"
 )
 REALESRGAN_CKPT_PATH = CURRENT_DIR / "hy3dpaint" / "ckpt" / "RealESRGAN_x4plus.pth"
+CUSTOM_RASTERIZER_WHEEL_URL = (
+    "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1/resolve/main/"
+    "custom_rasterizer-0.1-cp310-cp310-linux_x86_64.whl"
+)
+CUSTOM_RASTERIZER_WHEEL_PATH = (
+    CURRENT_DIR / "tmp" / "custom_rasterizer-0.1-cp310-cp310-linux_x86_64.whl"
+)
 
 
 def ensure_realesrgan_checkpoint() -> Path:
@@ -69,6 +76,17 @@ def ensure_realesrgan_checkpoint() -> Path:
     print(f"Downloading RealESRGAN checkpoint to {REALESRGAN_CKPT_PATH}...")
     urlretrieve(REALESRGAN_URL, REALESRGAN_CKPT_PATH)
     return REALESRGAN_CKPT_PATH
+
+
+def ensure_custom_rasterizer_wheel() -> Path:
+    """Download Tencent's prebuilt rasterizer wheel for the HF Space runtime."""
+    CUSTOM_RASTERIZER_WHEEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if CUSTOM_RASTERIZER_WHEEL_PATH.exists():
+        return CUSTOM_RASTERIZER_WHEEL_PATH
+
+    print(f"Downloading custom rasterizer wheel to {CUSTOM_RASTERIZER_WHEEL_PATH}...")
+    urlretrieve(CUSTOM_RASTERIZER_WHEEL_URL, CUSTOM_RASTERIZER_WHEEL_PATH)
+    return CUSTOM_RASTERIZER_WHEEL_PATH
 
 
 ENV = "Huggingface" # "Huggingface"
@@ -106,9 +124,9 @@ if ENV == 'Huggingface':
         os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0;8.6"
 
     def prepare_env():
-        rasterizer_dir = CURRENT_DIR / "hy3dpaint" / "packages" / "custom_rasterizer"
+        rasterizer_wheel = ensure_custom_rasterizer_wheel()
         subprocess.run(
-            [pythonpath, "-m", "pip", "install", "--no-build-isolation", str(rasterizer_dir)],
+            [pythonpath, "-m", "pip", "install", str(rasterizer_wheel)],
             check=True,
         )
         print("cd /home/user/app/hy3dpaint/differentiable_renderer/ && bash compile_mesh_painter.sh")
