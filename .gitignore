@@ -131,6 +131,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.env.local
 env/
 venv/
 ENV/
@@ -158,9 +159,59 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 .DS_Store
+.AppleDouble
+Thumbs.db
 # Cython debug symbols
 cython_debug/
 gradio_cache/
+.idea/
+.vscode/
+
+# Space runtime caches and outputs
+.cache/
+save_dir/
+output_folder/
+outputs/
+infer/
+logs/
+log/
+tmp/
+tmp_*/
+*.tmp
+
+# Hugging Face / model download caches
+.hf/
+.huggingface/
+huggingface/
+hf_home/
+models/
+checkpoints/
+hy3dpaint/ckpt/*
+!hy3dpaint/ckpt/.gitkeep
+
+# Local generated meshes and texture exports
+*.glb
+*.gltf
+*.obj
+*.stl
+*.ply
+*.mtl
+*.usdz
+*.zip
+*.jpg
+*.jpeg
+*.png
+
+# Keep checked-in demo and app assets
+!assets/
+!assets/**
+!hy3dpaint/assets/
+!hy3dpaint/assets/**
+!hy3dpaint/train_examples/
+!hy3dpaint/train_examples/**
+!hy3dshape/demos/
+!hy3dshape/demos/**
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

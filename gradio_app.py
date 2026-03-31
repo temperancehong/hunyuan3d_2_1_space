@@ -37,6 +37,7 @@ import subprocess
 import time
 from glob import glob
 from pathlib import Path
+from urllib.request import urlretrieve
 
 import gradio as gr
 import torch
@@ -52,6 +53,24 @@ from hy3dpaint.convert_utils import create_glb_with_pbr_materials
 
 
 MAX_SEED = 1e7
+CURRENT_DIR = Path(__file__).resolve().parent
+REALESRGAN_URL = (
+    "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth"
+)
+REALESRGAN_CKPT_PATH = CURRENT_DIR / "hy3dpaint" / "ckpt" / "RealESRGAN_x4plus.pth"
+
+
+def ensure_realesrgan_checkpoint() -> Path:
+    """Download the RealESRGAN checkpoint lazily for texture generation."""
+    REALESRGAN_CKPT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if REALESRGAN_CKPT_PATH.exists():
+        return REALESRGAN_CKPT_PATH
+
+    print(f"Downloading RealESRGAN checkpoint to {REALESRGAN_CKPT_PATH}...")
+    urlretrieve(REALESRGAN_URL, REALESRGAN_CKPT_PATH)
+    return REALESRGAN_CKPT_PATH
+
+
 ENV = "Huggingface" # "Huggingface"
 if ENV == 'Huggingface':
     """
@@ -94,8 +113,7 @@ if ENV == 'Huggingface':
 
         print("cd /home/user/app/hy3dpaint/differentiable_renderer/ && bash compile_mesh_painter.sh")
         os.system("cd /home/user/app/hy3dpaint/DifferentiableRenderer && bash compile_mesh_painter.sh")
-        # print("wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -P /home/user/app/hy3dpaint/ckpt")
-        # os.system("wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -P /home/user/app/hy3dpaint/ckpt")
+        ensure_realesrgan_checkpoint()
 
     def check():
         import custom_rasterizer
@@ -854,7 +872,7 @@ if __name__ == '__main__':
 
             from hy3dpaint.textureGenPipeline import Hunyuan3DPaintPipeline, Hunyuan3DPaintConfig
             conf = Hunyuan3DPaintConfig(max_num_view=8, resolution=768)
-            conf.realesrgan_ckpt_path = "hy3dpaint/ckpt/RealESRGAN_x4plus.pth"
+            conf.realesrgan_ckpt_path = str(ensure_realesrgan_checkpoint())
             conf.multiview_cfg_path = "hy3dpaint/cfgs/hunyuan-paint-pbr.yaml"
             conf.custom_pipeline = "hy3dpaint/hunyuanpaintpbr"
             tex_pipeline = Hunyuan3DPaintPipeline(conf)
