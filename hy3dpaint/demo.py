@@ -31,5 +31,8 @@ if __name__ == "__main__":
 
     conf = Hunyuan3DPaintConfig(max_num_view, resolution)
     paint_pipeline = Hunyuan3DPaintPipeline(conf)
-    output_mesh_path = paint_pipeline(mesh_path="./assets/case_1/mesh.glb", image_path="./assets/case_1/image.png")
+    raise SystemExit(
+        "Provide your own mesh_path and image_path when running this demo locally. "
+        "Bundled example binary assets are intentionally not tracked in this Space repo."
+    )
     print(f"Output mesh path: {output_mesh_path}")

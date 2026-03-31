@@ -213,7 +213,7 @@
             }
             
             window_state.isHidden = true;
-            modelViewer.environmentImage = '/static/env_maps/gradient.jpg';
+            modelViewer.environmentImage = 'neutral';
             modelViewer.exposure = 4;
             
             console.log('Textures hidden successfully');
@@ -278,7 +278,7 @@
             }
             
             // 恢复环境设置
-            modelViewer.environmentImage = '/static/env_maps/white.jpg';
+            modelViewer.environmentImage = 'neutral';
             if (window_state.savedExposure !== undefined) {
                 modelViewer.exposure = window_state.savedExposure;
             }

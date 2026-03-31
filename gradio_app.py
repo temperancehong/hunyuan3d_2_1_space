@@ -106,11 +106,8 @@ if ENV == 'Huggingface':
         os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0;8.6"
 
     def prepare_env():
-        # print('install custom')
-        # os.system(f"cd /home/user/app/hy3dpaint/custom_rasterizer && {pythonpath} -m pip install -e .")
-        # os.system(f"cd /home/user/app/hy3dpaint/packages/custom_rasterizer && pip install -e .")
-        subprocess.run(shlex.split("pip install custom_rasterizer-0.1-cp310-cp310-linux_x86_64.whl"), check=True)
-
+        rasterizer_dir = CURRENT_DIR / "hy3dpaint" / "packages" / "custom_rasterizer"
+        subprocess.run([pythonpath, "-m", "pip", "install", str(rasterizer_dir)], check=True)
         print("cd /home/user/app/hy3dpaint/differentiable_renderer/ && bash compile_mesh_painter.sh")
         os.system("cd /home/user/app/hy3dpaint/DifferentiableRenderer && bash compile_mesh_painter.sh")
         ensure_realesrgan_checkpoint()
@@ -929,7 +926,6 @@ if __name__ == '__main__':
     static_dir = Path(SAVE_DIR).absolute()
     static_dir.mkdir(parents=True, exist_ok=True)
     app.mount("/static", StaticFiles(directory=static_dir, html=True), name="static")
-    shutil.copytree('./assets/env_maps', os.path.join(static_dir, 'env_maps'), dirs_exist_ok=True)
 
     if args.low_vram_mode:
         torch.cuda.empty_cache()

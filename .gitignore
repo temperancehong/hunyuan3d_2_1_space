@@ -201,6 +201,7 @@ hy3dpaint/ckpt/*
 *.jpg
 *.jpeg
 *.png
+*.whl
 
 # Keep checked-in demo and app assets
 !assets/

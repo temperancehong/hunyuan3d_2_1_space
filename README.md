@@ -105,10 +105,10 @@ We test our model on an A100 GPU with Python 3.10 and PyTorch 2.5.1+cu124.
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
 
-cd hy3dpaint/custom_rasterizer
+cd hy3dpaint/packages/custom_rasterizer
 pip install -e .
 cd ../..
-cd hy3dpaint/DifferentiableRenderer
+cd ../DifferentiableRenderer
 bash compile_mesh_painter.sh
 cd ../..
 ```
@@ -125,12 +125,12 @@ sys.path.insert(0, './hy3dpaint')
 from textureGenPipeline import Hunyuan3DPaintPipeline
 from textureGenPipeline import Hunyuan3DPaintPipeline, Hunyuan3DPaintConfig
 
-# let's generate a mesh first
+# let's generate a mesh first from your own image path
 shape_pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained('tencent/Hunyuan3D-2.1')
-mesh_untextured = shape_pipeline(image='assets/demo.png')[0]
+mesh_untextured = shape_pipeline(image='path/to/input.png')[0]
 
 paint_pipeline = Hunyuan3DPaintPipeline(Hunyuan3DPaintConfig(max_num_view=6, resolution=512))
-mesh_textured = paint_pipeline(mesh_path, image_path='assets/demo.png')
+mesh_textured = paint_pipeline(mesh_path, image_path='path/to/input.png')
 ```
 
 
