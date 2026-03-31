@@ -39,6 +39,13 @@ omegaconf==2.3.0
 pyyaml==6.0.2
 configargparse==1.7
 
+# Web stack pinned to Gradio 4.44.x-compatible versions
+fastapi==0.115.0
+starlette==0.38.6
+httpx==0.27.2
+jinja2==3.1.4
+uvicorn==0.30.6
+
 # Utilities
 tqdm==4.66.5
 psutil==6.0.0
@@ -61,4 +68,3 @@ pythreejs
 # torch_cluster
 
 pydantic==2.10.6
-
