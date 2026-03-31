@@ -957,6 +957,8 @@ if __name__ == '__main__':
     if ENV == 'Huggingface':
         # for Zerogpu
         from spaces import zero
-        zero.startup()
+        startup = getattr(zero, "startup", None)
+        if callable(startup):
+            startup()
 
     uvicorn.run(app, host=args.host, port=args.port)
