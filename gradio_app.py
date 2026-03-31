@@ -107,7 +107,10 @@ if ENV == 'Huggingface':
 
     def prepare_env():
         rasterizer_dir = CURRENT_DIR / "hy3dpaint" / "packages" / "custom_rasterizer"
-        subprocess.run([pythonpath, "-m", "pip", "install", str(rasterizer_dir)], check=True)
+        subprocess.run(
+            [pythonpath, "-m", "pip", "install", "--no-build-isolation", str(rasterizer_dir)],
+            check=True,
+        )
         print("cd /home/user/app/hy3dpaint/differentiable_renderer/ && bash compile_mesh_painter.sh")
         os.system("cd /home/user/app/hy3dpaint/DifferentiableRenderer && bash compile_mesh_painter.sh")
         ensure_realesrgan_checkpoint()
